@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>YouTube iframe 嵌入示例</title>
+
+  <!-- 如果你站点有 CSP，可参考这段（按需启用）
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 frame-src https://www.youtube.com https://www.youtube-nocookie.com;
+                 script-src 'self';
+                 style-src 'self' 'unsafe-inline';
+                 img-src 'self' data:;">
+  -->
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #0b0b0b;
+      color: #f5f5f5;
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+    .card {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .title {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .desc {
+      margin: 0 0 16px;
+      color: #bdbdbd;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* 响应式 16:9 容器 */
+    .video {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 9/16 = 0.5625 */
+      overflow: hidden;
+      border-radius: 12px;
+      background: #000;
+    }
+    .video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .hint {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #9e9e9e;
+    }
+    code {
+      background: #1f1f1f;
+      border: 1px solid #2a2a2a;
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: #e6e6e6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1 class="title">YouTube iframe 嵌入（免登录可播：取决于视频限制）</h1>
+      <p class="desc">
+        将下面链接中的 <code>VIDEO_ID</code> 替换为你的 YouTube 视频 ID 即可。
+        使用的是 <code>youtube-nocookie.com</code>（隐私增强模式）。
+      </p>
+
+      <div class="video">
+        
+		 <iframe width="560" height="315" src="https://www.youtube.com/embed/LspsQ6lwyDQ?si=fWc8LImfLuKLqD6t" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      
+	  </div>
+
+      <p class="hint">
+        备注：如果视频是“年龄限制 / 私有 / 某些版权限制”，即使嵌入也会要求登录或无法播放。
+        如果你想尝试自动播放，可在 URL 后加 <code>&autoplay=1&mute=1</code>（多数浏览器要求静音才能自动播）。
+      </p>
+    </div>
+  </div>
+</body>
+</html>
