@@ -145,19 +145,23 @@
     </div>
 
     <script>
+        const iframeElements = Array.from(document.querySelectorAll('.video-wrapper iframe'));
         const players = [];
 
-        function onYouTubeIframeAPIReady() {
-            document.querySelectorAll('.video-wrapper iframe').forEach((iframe, index) => {
+        window.onYouTubeIframeAPIReady = function () {
+            iframeElements.forEach((iframe, index) => {
                 const id = iframe.id || `yt-player-${index}`;
                 iframe.id = id;
 
-                const player = new YT.Player(id, {
+                players[index] = new YT.Player(id, {
+                    playerVars: {
+                        origin: window.location.origin,
+                    },
                     events: {
-                        onStateChange: (event) => {
+                        onStateChange(event) {
                             if (event.data === YT.PlayerState.PLAYING) {
-                                players.forEach((other) => {
-                                    if (other !== event.target && other.getPlayerState() === YT.PlayerState.PLAYING) {
+                                players.forEach((other, otherIndex) => {
+                                    if (otherIndex !== index && other?.getPlayerState() === YT.PlayerState.PLAYING) {
                                         other.pauseVideo();
                                     }
                                 });
@@ -165,13 +169,12 @@
                         },
                     },
                 });
-
-                players.push(player);
             });
-        }
+        };
 
         const tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
+        tag.async = true;
         document.head.appendChild(tag);
     </script>
     
